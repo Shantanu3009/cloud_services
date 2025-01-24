@@ -27,12 +27,12 @@ if not os.path.exists(DAG_PATH):
     raise ValueError(f"DAG_PATH does not exist: {DAG_PATH}")
 
 PROJECT_ID = os.environ.get("GCP_PROJECT")  # Set GCP Project ID dynamically
-REPO_NAME = "bq-to-bt"
-py_folder_path = os.path.join(DAG_PATH, f"{REPO_NAME}/py")
+REPO_NAME = "BigTable_to_BigQuery_DAG"
+py_folder_path = os.path.join(DAG_PATH, f"{REPO_NAME}/dags/src/py")
 
 
 
-PROJECT_PARAMS_PATH = os.path.join(DAG_PATH, f"{REPO_NAME}/config/config.json")
+PROJECT_PARAMS_PATH = os.path.join(DAG_PATH, f"{REPO_NAME}/dags/src/config/config.json")
 with open(PROJECT_PARAMS_PATH, "r") as file:
     ct = json.load(file)
 
@@ -55,6 +55,7 @@ default_dag_args = {
     "start_date": days_ago(1),
     "project_id": PROJECT_ID,
     "retries": 0,
+    "description": "A DAG to ingest Data from BigTable to Bigquery using DataFlow and Apache Beam",
     "email_on_failure": False,
     "depends_on_past": False,
     "email_on_retry": False,
@@ -76,7 +77,7 @@ with models.DAG(
     bq_bt_convert_procedure= BeamRunPythonPipelineOperator(
         task_id="bq_bt_convert_procedure",
         runner="DataflowRunner",
-        py_file=f"{py_folder_path}/bq-bt-ingest-df-job-template-enabled.py",
+        py_file=f"{py_folder_path}/bq_to_bt.py",
         pipeline_options={
             "tempLocation": f"gs://{code_bucket}/",
             "maxNumWorkers": "2",
