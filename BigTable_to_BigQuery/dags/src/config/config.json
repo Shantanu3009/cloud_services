@@ -1,0 +1,26 @@
+{
+    "config": {
+      "REGION": "us-central1",
+      "USER": "shantanu",
+      "REPO_NAME": "BigTable_to_BigQuery_DAG",
+      "connect_sa": "shan-practice-compute@shan-practice-dev.iam.gserviceaccount.com",
+      "resource_sa": "shan-project-data@shan-practice-dev.iam.gserviceaccount.com",
+      "bt_instance_id": {
+        "bt_db_instance_id": "my-instance-1"
+      },
+      "bt_store": {
+        "bt_procedure_store": "my-table-1"
+      },
+      "bq_dataset": {
+        "bq_dataset_id": "my_dataset_1"
+      },
+      "bq_table_names": {
+        "bq_table": "my_table_1"
+      },
+      "BUCKETS": {
+        "CODE_BUCKET": "us-central1-my-composer-1-5a3d8835-bucket",
+        "DATA_BUCKET": "shantanu_practice_bucket"
+      },
+      "subnetwork_uri": "my-subnet-1"
+    }
+  }
